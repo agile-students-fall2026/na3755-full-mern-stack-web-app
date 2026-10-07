@@ -76,6 +76,24 @@ app.post('/messages/save', async (req, res) => {
       status: 'failed to save the message to the database',
     })
   }
+}) 
+
+app.get('/about',(req,res) =>{
+  res.json({
+    title: 'About Us',
+    paragraphs:[
+      'Hello! I am Nihal Sundari. I am a student at NYU.',
+      'A fun fact about me is that I can speak 5 languages.',
+    ],
+    image: `${req.protocol}://${req.get('host')}/pub/C35B613C-31DC-4E1C-BED5-F8C80C51F21C_1_105_c.jpeg`
+})
+})
+
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private'),
+  res.set('Pragma', 'no-cache'),
+  res.set('Expires', '0'),
+  next()
 })
 
 // export the express app we created to make it available to other modules

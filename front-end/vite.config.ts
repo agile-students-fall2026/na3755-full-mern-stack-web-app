@@ -26,7 +26,18 @@ export default defineConfig(({ mode }) => {
     // open at port number specified in .env file
     server: {
       open: true,
-      port: env.PORT ? Number(env.PORT) : 7002,
-    },
+      port: 7000, // Hardcoded to 7000 so it ignores the hidden .env file lock
+      proxy: {
+        // Automatically bridges the gap between your frontend port and backend port 5002
+        '/about': {
+          target: 'http://localhost:5002',
+          changeOrigin: true,
+        },
+        '/pub': {
+          target: 'http://localhost:5002',
+          changeOrigin: true,
+        }
+      }
+    }
   }
 })
